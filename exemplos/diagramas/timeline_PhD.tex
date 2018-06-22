@@ -1,0 +1,75 @@
+\documentclass[border=10pt]{standalone}
+
+ \usepackage{import}
+
+
+\usepackage{tikz}
+%\usetikzlibrary{tikzlibrarytimeline.code.tex}
+
+\usetikzlibrary{timeline}
+
+
+
+\begin{document}
+
+\begin{tikzpicture}[timespan={}, timeline width=15, timeline offset=0.05]
+%timespan={Year} %-> now we have days as reference
+%timespan={ \, }    -> no label is displayed for the timespan
+% default timespan is 'year'
+
+\timeline[custom interval=true]{2014, 2015, 2016, 2017, 2018} 
+
+
+% put here the phases
+
+
+\begin{phases}
+
+% begin - phase 0
+\initialphase{involvement degree=2.00cm,phase color=black!60, xshift=-0.00cm}
+
+% mandatory disciplines
+\phase{between year=1 and 2 in 0.35, involvement degree=5cm, phase color=blue!90!black, xscale=0.7, yscale=0.3, yshift=-0.cm, shape=rectangle, rounded corners=5mm, , opacity=0.55}
+
+
+% proficiency exam
+\phase{between year=2 and 3 in 0.3, involvement degree=5cm, phase color=yellow, yscale=0.3, xscale=0.3, yshift=0.0cm, opacity=0.4}
+
+% PhD sandwich
+\phase{between year=3 and 4 in 0.25, involvement degree=5cm, phase color=purple, yscale=0.35, xscale=0.35, yshift=0.0cm, opacity=0.2}
+
+% quali
+\phase{between year=3 and 4 in 0.6, involvement degree=5cm, phase color=green!30!gray, xshift=0.0cm, xscale=0.275, yscale=0.275, opacity=0.5}
+
+% end PhD
+\phase{between year=5 and 5 in 1.0, involvement degree=2.00cm,phase color=black!60, xshift=-0.00cm}
+
+
+\end{phases}
+
+%\node [] (2014) at (0,0.5\timelineheight) [color=white] {2014};
+
+\addmilestone{at=phase-0.90,direction=90:1cm,text={PhD started \\ March 2014},text options={above, text width=3.25cm, align=center}}
+
+% mandatory courses
+\addmilestone{at=phase-1.270,direction=270:0.5cm,text={{\color{blue!70!black} mandatory courses  42/30 credits}},text options={below, text width=3.25cm, align=center}}
+
+% IELTS
+\addmilestone{at=phase-2.77,direction=75:0.5cm,text={{\color{yellow!30!black} proficiency exam \\ IELTS}},text options={above, text width=3.725cm}}
+
+
+% Sandwich YORK
+\addmilestone{at=phase-3.240,direction=210:0.95cm,text={{\color{red!70!black} 2-months sandwich \\ University of York}},text options={below,text width=3.725cm}}
+
+
+% QUALIFICATION
+\addmilestone{at=phase-4.90,direction=90:1cm,text={{\color{green!60!black} QUALIFICATION \\ exam: August 4th, 2016}},text options={above,text width=4cm}}
+
+
+% thesis defense
+\addmilestone{at=phase-5.90,direction=90:1cm,text={Thesis defense February 2018},text options={above, text width=3.725cm}}
+
+\end{tikzpicture}
+
+\end{document}
+

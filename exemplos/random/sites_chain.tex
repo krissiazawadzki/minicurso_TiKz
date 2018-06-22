@@ -1,0 +1,120 @@
+\documentclass{standalone}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}  
+
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{fit, arrows, shapes, shapes.geometric, calc, fadings, shapes.arrows, shadows}
+\usetikzlibrary{automata, snakes, backgrounds, trees, positioning, backgrounds, decorations.text}
+\usetikzlibrary{arrows,decorations.markings}
+
+
+\usepackage{pgf}
+\usepackage{pgfplots}
+
+
+\definecolor{maincolor}{HTML}{006666}
+
+\begin{document}
+
+	\begin{tikzpicture}
+	\tikzset{mylevel/.style={-, thick, line width=1pt},
+		mydarrow/.style={<->, >=latex', shorten >=4pt, shorten <=2pt, line width=2pt, opacity = .75,
+		},
+	}
+	
+		\def\N{4};
+		\def\Nb{3};
+		\def\negativespace{1.};
+
+		\pgfmathparse{int(\N+\Nb)}
+		\edef\NTot{\pgfmathresult}
+
+		\def\spacoo{0.5};
+		\def\levelwidth{1.0};
+	
+		
+		\node[] (origin) at ($(0,0)$) {};
+	
+		\node[] (origin2) at ($(origin)+(\Nb*\levelwidth+\Nb*\spacoo+\spacoo,0)$) {};
+
+		% draw levels
+		\foreach  \l [count=\i from -1] in {1,...,\N}{
+		
+			\coordinate (fn\i) at ($(origin) + (\i*\levelwidth + \i*\spacoo, 0.)$);
+		 
+			\draw[mylevel] ($(fn\i) + (0,0)$)--($(fn\i) + (\levelwidth, 0. )$) {};
+			
+			\pgfmathparse{\i+1} 
+			\ifnum0=\pgfmathresult\relax
+			\node[font=\large] (labelfn\i) at ($(fn\i) + (0.5*\levelwidth,-0.35)$){$c_d$};
+			\else
+			\node[font=\large] (labelfn\i) at ($(fn\i) + (0.5*\levelwidth,-0.35)$){$f_{\i}$};
+			\fi
+		}
+		% draw hopping
+		\foreach   \l [count=\i from 0] in {2,...,\N}{
+		
+			\pgfmathparse{int(\i-1)}
+			\edef\lefti{\pgfmathresult}
+			
+			\pgfmathparse{\i} 
+			\ifnum0=\pgfmathresult\relax
+			
+			\draw[mydarrow, color=red, bend left=45] ($(fn\lefti) + (0.5*\levelwidth,0)$)to node[auto, swap, sloped, above] {$J$} ($(fn\i) + (0.5*\levelwidth, 0. )$);
+
+			\else
+				
+			\draw[mydarrow, color=maincolor, bend left=45] ($(fn\lefti) + (0.5*\levelwidth,0)$)to node[auto, swap, sloped, above] {$t_{\lefti}$} ($(fn\i) + (0.5*\levelwidth, 0. )$);
+
+			\fi
+
+		}
+		
+
+		% second part
+		\foreach  \l [count=\i from \N] in {1,...,\Nb}{
+		
+			\pgfmathparse{int(\NTot-\i-1)}
+			\edef\irel{\pgfmathresult}
+		
+			\coordinate (fn\i) at ($(origin) + (\i*\levelwidth + \i*\spacoo-\negativespace, 0.)$);
+		 
+			\draw[mylevel] ($(fn\i) + (0,0)$)--($(fn\i) + (\levelwidth, 0. )$) {};
+	
+			\pgfmathparse{\irel} 
+			\ifnum0=\pgfmathresult\relax
+			
+			\node[] (labelfn\i) at ($(fn\i) + (0.5*\levelwidth,-0.35)$){$f_{N}$};
+			
+			\else
+			\node[font=\large] (labelfn\i) at ($(fn\i) + (0.5*\levelwidth,-0.35)$){$f_{N-\irel}$};
+			\fi
+			
+		}		
+		
+		\node[] (dotsnode) at ($(fn\N)+(-0.5*\levelwidth,0)$) {$\dots$};
+		
+		\foreach   \l [count=\i from \N+1] in {2,...,\Nb}{
+		
+			\pgfmathparse{int(\i-1)}
+			\edef\lefti{\pgfmathresult}
+			
+			\pgfmathparse{int(\NTot-\i)}
+			\edef\ireli{\pgfmathresult}
+		
+			\draw[mydarrow, color=maincolor, bend left=45] ($(fn\lefti) + (0.5*\levelwidth,0)$)to node[auto, swap, sloped, above] {$t_{N-\ireli}$} ($(fn\i) + (0.5*\levelwidth, 0. )$);
+
+		
+		}
+		
+		
+	
+	
+	\end{tikzpicture}
+
+
+\end{document}
+
+

@@ -1,0 +1,39 @@
+\documentclass[]{standalone}
+%\usepackage[top=0.5cm,bottom=0.5cm,left=1.5cm,right=3cm]{geometry}
+
+\usepackage{tikz}
+\usetikzlibrary{calc} % <- biblioteca para cálculos, ex: coordenadas relativas
+\usetikzlibrary{shapes} % <- biblioteca de formas
+
+\usetikzlibrary{arrows, positioning} % <- biblioteca de setas
+\usetikzlibrary{decorations.markings} % <- biblioteca de decorações, classe de símbolos e marcadores especiais
+
+
+\tikzstyle arrowstyle=[scale=1]
+\tikzstyle directed=[postaction={decorate,decoration={markings,
+    mark=at position .65 with {\arrow[arrowstyle]{stealth}}}}]
+\tikzstyle reverse directed=[postaction={decorate,decoration={markings,
+    mark=at position .65 with {\arrowreversed[arrowstyle]{stealth};}}}]	
+
+\begin{document}
+
+	\begin{tikzpicture}
+ 
+	\node[fill=gray,
+        inner sep=3pt,
+        shape=single arrow,
+        minimum width=2pt,
+        minimum height=2cm] (myarrow) at (0,0) {};
+	
+	\node[fill=red,
+        inner sep=3pt,
+        shape=single arrow,
+        minimum width=2pt,
+        minimum height=2cm,
+        outer sep=2pt,
+        shape border rotate=45,] (myarrow) at (2,-0) {};
+
+\end{tikzpicture}
+
+
+\end{document}

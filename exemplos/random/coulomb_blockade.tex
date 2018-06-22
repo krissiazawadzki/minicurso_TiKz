@@ -1,0 +1,203 @@
+\documentclass{standalone}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}  
+
+\usepackage{tikz}
+\usetikzlibrary{fit, arrows, shapes, shapes.geometric, calc, fadings, shapes.arrows, shadows}
+
+
+\usepackage{relsize}
+
+
+\usepackage{amsmath}
+\definecolor{maincolor}{HTML}{006666}
+
+\begin{document}
+
+	\begin{tikzpicture}
+		\tikzset{
+		bandnodeL/.style={rectangle, bottom color=gray!60!black, top color=blue!40, rounded corners=0mm, minimum height=2.0cm,
+		minimum width = 1.5cm,
+		inner sep=0.15cm,  text centered, align=center,
+		font=\normalsize \bfseries, text=white}
+		,
+		bandnodeR/.style={rectangle, bottom color=gray!60!black, top color=red!40, rounded corners=0mm, minimum height=2.0cm,
+		minimum width = 1.5cm,
+		inner sep=0.15cm,  text centered, align=center,
+		font=\normalsize \bfseries, text=white}
+		,
+		barriernode/.style={rectangle, bottom color=gray!60!black, top color=gray!25, rounded corners=1mm, minimum height=2.75cm,
+		minimum width = 0.3cm,
+		inner sep=0.1cm,  text centered, align=center,
+		font=\footnotesize, text=black}
+		,
+		citationnode/.style={rectangle, draw=none, anchor=west, 
+		font=\scriptsize, align=left}
+		,
+		myarrow/.style={->, >=latex', shorten >=4pt, shorten <=2pt, line width=3pt, opacity = .5}
+		,
+		myline/.style={-, black, line width=2pt, opacity=0.5}
+		,
+		mynodeflux/.style={rectangle, bottom color=maincolor!50, top color=maincolor!25, rounded corners=2mm, minimum height=0.5cm,
+		inner sep=0.15cm,  text centered, align=center,
+		font=\footnotesize, text=black}
+		,
+		blocknode/.style={rectangle, bottom color=maincolor!5, top color=white, rounded corners=2mm, minimum height=0.5cm,
+		inner sep=0.15cm,  text centered, align=center,
+		font=\footnotesize, text=black}
+		,
+		levelnode/.style={rectangle, color=black, draw=black, minimum height=0mm, minimum width = 1.25cm, inner sep=0cm}
+		,
+		levelnode2/.style={rectangle, color=black, draw=black, minimum height=0mm, minimum width = 1.cm, inner sep=0cm}
+		,
+		}
+		
+		\node[] (origin) at (0,0) {};
+		\node[] (centernode) at (2*0.875,-0.25) {};
+		\node[ellipse, bottom color=maincolor!25, top color=white,inner sep=0, minimum height=0.65cm] (Vg) at ($(centernode)+(0.0,3.0)$) 
+		{$V_G =0$};
+		
+		
+		
+		
+		
+		\node[bandnodeL, anchor=center, minimum height=2.4cm] (bandL) at ($(origin)+(0.0,0.0)$){};
+		\node[barriernode, anchor=south,  minimum height=3.25cm] (barL) at ($(bandL.south east) + (0.075,0.0)$){};
+		
+		\node[bandnodeR, anchor=south, minimum height=2.4cm] (bandR) at ($(bandL.south)+(3.5,0.)$){};
+		\node[barriernode, anchor=south] (barR) at ($(bandR.south west) + (-0.075,0.0)$){};
+		
+		\foreach  \l [count=\i from 1] in {1,...,12}{
+			\node[levelnode] (levelnL\i) at ($(bandL.south)+(0,0.2*\i)$){};
+		
+		}
+
+		\foreach  \l [count=\i from 1] in {1,...,12}{
+			\node[levelnode] (levelnR\i) at ($(bandR.south)+(0,0.2*\i)$){};
+		
+		}		
+		
+		
+
+		\coordinate (edU2) at ($(centernode)+(levelnL12)+(0.,0.75)$);
+		\coordinate (edU1) at ($(edU2)+(0.,-1.5)$);
+		
+		
+		\draw[<->, line width=1pt, opacity=0.45] ($(edU1)+(-0.4,0)$) to node [right, color=black] {$\frac{e^2}{2C}$} ($(edU2)+(-0.4,0)$);
+		
+		\draw[-, below, text centered, font=\footnotesize] ($(edU2)+(-0.5,0.0)$)to node [left] { } ($(edU2)+(0.5,0.0)$);
+		\draw[-, below, text centered, font=\footnotesize] ($(edU1)+(-0.5,0.0)$)to node [left]{} ($(edU1)+(0.5,0.0)$);
+		
+		\node[] (edn) at ($(edU1)+(0.2,0.15)$) {$\displaystyle \epsilon_{n}$};
+		\node[] (ednp1) at ($(edU2)+(0.2,0.15)$) {$\displaystyle \epsilon_{n+1}$};
+		
+		\foreach  \l [count=\i from 1] in {1,...,8}{
+			\node[levelnode2] (levelnd\i) at ($(edU1.south)+(0,-0.15*\i)$){};
+		
+		}			
+				
+		\node[rectangle, minimum width=1.5cm, minimum height=1.3cm, fill=green!50!yellow, opacity=0.5, anchor=north] (banddot) at ($(edU1.south)+(0.0,-0.0)$) {};
+		
+		\shade [ball color=green] ($(levelnL12)+(0, 0)$) circle [radius= 0.85mm];
+		\draw[myarrow, green, bend left=45] ($(levelnL12.north) + (0,0)$) to node[auto, swap, sloped, above, opacity=0.5] {}($(edU2.north) + (0,0.)$);
+
+		\node[color=red, draw=none, font=\large] (no) at ($(levelnL12.north)+(0.6, 0.6)$) {x};
+
+	\end{tikzpicture}
+	
+	\hspace{0.35cm}
+	\begin{tikzpicture}
+		\tikzset{
+		bandnodeL/.style={rectangle, bottom color=gray!60!black, top color=blue!40, rounded corners=0mm, minimum height=2.0cm,
+		minimum width = 1.5cm,
+		inner sep=0.15cm,  text centered, align=center,
+		font=\normalsize \bfseries, text=white}
+		,
+		bandnodeR/.style={rectangle, bottom color=gray!60!black, top color=red!40, rounded corners=0mm, minimum height=2.0cm,
+		minimum width = 1.5cm,
+		inner sep=0.15cm,  text centered, align=center,
+		font=\normalsize \bfseries, text=white}
+		,
+		barriernode/.style={rectangle, bottom color=gray!60!black, top color=gray!25, rounded corners=1mm, minimum height=2.75cm,
+		minimum width = 0.3cm,
+		inner sep=0.1cm,  text centered, align=center,
+		font=\footnotesize, text=black}
+		,
+		citationnode/.style={rectangle, draw=none, anchor=west, 
+		font=\scriptsize, align=left}
+		,
+		myarrow/.style={->, >=latex', shorten >=4pt, shorten <=2pt, line width=3pt, opacity = .5}
+		,
+		myline/.style={-, black, line width=2pt, opacity=0.5}
+		,
+		mynodeflux/.style={rectangle, bottom color=maincolor!50, top color=maincolor!25, rounded corners=2mm, minimum height=0.5cm,
+		inner sep=0.15cm,  text centered, align=center,
+		font=\footnotesize, text=black}
+		,
+		blocknode/.style={rectangle, bottom color=maincolor!5, top color=white, rounded corners=2mm, minimum height=0.5cm,
+		inner sep=0.15cm,  text centered, align=center,
+		font=\footnotesize, text=black}
+		,
+		levelnode/.style={rectangle, color=black, draw=black, minimum height=0mm, minimum width = 1.25cm, inner sep=0cm}
+		,
+		levelnode2/.style={rectangle, color=black, draw=black, minimum height=0mm, minimum width = 1.cm, inner sep=0cm}
+		,
+		}
+		
+		\node[] (origin) at (0,0) {};
+		\node[] (centernode) at (2*0.875,-0.25) {};
+		\node[ellipse, bottom color=maincolor!25, top color=white,inner sep=0, minimum height=0.65cm] (Vg) at ($(centernode)+(0.0,3.0)$) 
+		{$V_G = n \frac{e}{2C}$};
+		
+		
+		\node[bandnodeL, anchor=center, minimum height=2.4cm] (bandL) at ($(origin)+(0.0,0.0)$){};
+		\node[barriernode, anchor=south,  minimum height=3.25cm] (barL) at ($(bandL.south east) + (0.075,0.0)$){};
+		
+		
+		\node[bandnodeL, anchor=center, minimum height=2.4cm] (bandL) at ($(origin)+(0.0,0.0)$){};
+		\node[barriernode, anchor=south] (barL) at ($(bandL.south east) + (0.075,0.0)$){};
+		
+		\node[bandnodeR, anchor=south, minimum height=2.4cm] (bandR) at ($(bandL.south)+(3.5,0.)$){};
+		\node[barriernode, anchor=south] (barR) at ($(bandR.south west) + (-0.075,0.0)$){};
+		
+		\foreach  \l [count=\i from 1] in {1,...,12}{
+			\node[levelnode] (levelnL\i) at ($(bandL.south)+(0,0.2*\i)$){};
+		
+		}
+
+		\foreach  \l [count=\i from 1] in {1,...,11}{
+			\node[levelnode] (levelnR\i) at ($(bandR.south)+(0,0.2*\i)$){};
+		
+		}		
+		\node[levelnode] (levelnR12) at ($(bandR.south)+(0,0.2*12)$){};
+
+
+		\coordinate (edU2) at ($(centernode)+(levelnL12)+(0.,0.25)$);
+		\coordinate (edU1) at ($(edU2)+(0.,-1.5)$);
+		
+	
+		\draw[-, below, text centered, font=\footnotesize] ($(edU2)+(-0.5,0.0)$)to node [left] { } ($(edU2)+(0.5,0.0)$);
+		\draw[-, below, text centered, font=\footnotesize] ($(edU1)+(-0.5,0.0)$)to node [left]{} ($(edU1)+(0.5,0.0)$);
+		
+		\node[] (edn) at ($(edU1)+(0.,0.15)$) {$\displaystyle \epsilon_{n}$};
+		\node[] (ednp1) at ($(edU2)+(0.,-0.15)$) {$\displaystyle \epsilon_{n+1}$};
+		
+
+		\foreach  \l [count=\i from 1] in {1,...,5}{
+			\node[levelnode2] (levelnd\i) at ($(edU1.south)+(0,-0.15*\i)$){};
+		
+		}			
+				
+		\node[rectangle, minimum width=1.5cm, minimum height=0.8cm, fill=green!50!yellow, opacity=0.5, anchor=north] (banddot) at ($(edU1.south)+(0.0,-0.0)$) {};
+
+		\draw[myarrow, green, bend left=45] ($(levelnL12.north) + (0,0)$) to node[auto, swap, sloped, above, opacity=0.5] {}($(edU2.north) + (0,0.)$);
+		\draw[myarrow, green, bend left=45] ($(edU2.north) + (0,0)$) to node[auto, swap, sloped, above, opacity=0.5] {}($(levelnR12.north) + (0,0.)$);
+		\shade [ball color=green] ($(levelnL12)+(0, 0)$) circle [radius= 0.85mm];
+		\shade [ball color=green, opacity=0.75] ($(levelnR12)+(0, 0)$) circle [radius= 0.85mm];		
+		\shade [ball color=green, opacity=0.75] ($(edU2)+(0, 0)$) circle [radius= 0.85mm];	
+		
+	\end{tikzpicture}
+		
+	
+\end{document}

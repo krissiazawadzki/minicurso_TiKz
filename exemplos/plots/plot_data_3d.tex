@@ -1,0 +1,20 @@
+\documentclass[]{standalone}
+
+\usepackage{pgfplots}
+
+\begin{document}
+
+
+\begin{tikzpicture}
+    \begin{axis}[
+        xlabel = $x$,
+        ylabel = $y$,
+        zlabel = {$f(x,y) = \sin( x) e^{-y} + rand$},
+        title = {A Scatter Plot Example},
+        ]
+        \addplot3+[only marks, scatter] table {data_3d.dat};
+    \end{axis}
+\end{tikzpicture}
+
+
+\end{document}

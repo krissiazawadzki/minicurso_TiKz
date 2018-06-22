@@ -1,0 +1,40 @@
+\documentclass[]{standalone}
+
+\usepackage{pgfplots}
+
+\begin{document}
+\begin{tikzpicture}
+	  \begin{semilogxaxis}
+		[name=mainplot,
+		outer axis line style={line width=1pt},
+		xmin=1e-2, xmax=1e3, domain=1e-2:1e3,
+		scaled x ticks=real:1e1,
+		xtick scale label code/.code={},
+		ytick={-1.27, -0.25, -1.00, 0},
+		yticklabels={$-4/\pi \, $, $-0.25 \, $, $-1.0 \, \, $, $0 \,$},
+		xticklabel style = {font=\normalsize},
+		yticklabel style = {font=\normalsize},
+		ymin=-1.35, ymax=0.05,
+		x label style={at={(0.875,0.23)},anchor=north, font=\Large},
+		y label style={at={(0.175,0.65)},anchor=south east, font=\Large},
+		xlabel={$U/t$},
+		ylabel={$\epsilon_0 / t$},
+		legend style ={ at={(1.15,0.75)},
+			anchor=north, draw=none, 
+			fill=white,align=left},
+		legend columns=1,
+		every node/.style={inner sep=2pt, outer sep=0pt},
+		cycle list name=black white, font=\normalsize,
+		smooth]
+		\addplot[mark=none, color=black, line width=1.75pt, opacity=0.7] table {lieb.txt}; 
+		\addplot[mark=halfsquare*,color=blue, line width=1.0pt] table {tbc8q=Lds=0sector_theta=pi1_over_2_July.txt}; 
+		\addplot[mark=halfcircle*, color=cyan, mark size=1.25 pt, mark options={fill=white},line width=1.pt] table {tbc8q=Lds=0sector_theta=pi1_over_4_July.txt}; 
+		\addplot[mark=triangle*, color=red, mark size=1.5 pt, mark options={fill=white, line width=0.75 pt}, line width=1.0pt] table {tbc8q=Lds=0sector_theta=pi1_over_8_July.txt}; 
+		\legend{LW, $\pi / 2$, $\pi / 4$, $\pi / 8$};
+
+		\node[above, rectangle, draw=black] at (axis cs: 1e-1,-0.25) {\large$L = 8$};
+	  \end{semilogxaxis}
+
+\end{tikzpicture} 	
+
+\end{document}

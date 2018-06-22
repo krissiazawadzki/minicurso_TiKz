@@ -1,0 +1,59 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{calc} % <- biblioteca para cálculos, ex: coordenadas relativas
+\usetikzlibrary{shapes} % <- biblioteca de formas
+
+\usetikzlibrary{arrows, positioning} % <- biblioteca de setas
+\usetikzlibrary{decorations.markings} % <- biblioteca de decorações, classe de símbolos e marcadores especiais
+
+
+\tikzset{options/.code={\tikzset{#1}}} 
+
+\tikzstyle arrowstyle=[scale=1]
+\tikzstyle directed=[postaction={decorate,decoration={markings,
+    mark=at position .65 with {\arrow[arrowstyle]{stealth}}}}]
+\tikzstyle reverse directed=[postaction={decorate,decoration={markings,
+    mark=at position .65 with {\arrowreversed[arrowstyle]{stealth};}}}]	
+
+\begin{document}
+
+	\begin{tikzpicture}
+		
+	\def \ymax{10};
+	\def \xmax{10};
+	
+	\node[] (origem) at (0,0) {};
+	\node[] (maxfig) at (\xmax, \ymax) {};
+
+
+	
+\foreach \x [count=\i from 0] in {
+  {latex-latex},
+  {latex-latex},
+  {latex-latex, line width=1pt},
+  {latex reversed-latex reversed, line width=1pt},
+  {latex'-latex'},
+  {latex'-latex'},
+  {latex'-latex', line width=2pt},
+  {latex' reversed-latex' reversed, line width=2pt},
+  {o-o},
+  {o-o},
+  {o-o, line width=2pt},
+  {square-square},
+  {square-square},
+  {square-square, ultra thick},
+  {stealth-stealth},
+  {stealth-stealth},
+  {stealth-stealth, ultra thick},
+  {stealth reversed-stealth reversed, ultra thick},
+  {to-to},
+  {to-to}
+}
+{
+  \draw [options/.expand once=\x] (2*\i,5) -- (2*\i,8) node [above, text width=2cm, font=\tiny, align=center] {\x};
+}
+	\end{tikzpicture}
+
+
+\end{document}

@@ -1,0 +1,19 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{width=7cm,compat=1.8,
+    ,colormap={mygreen}{rgb255(0cm)=(0,0,0); rgb255(1cm)=(0,255,0)}
+    ,colormap={myblue}{rgb255(0cm)=(0,0,0); rgb255(1cm)=(0,0,255) ; rgb255(1cm)=(0,0,111)}
+    ,colormap={myred}{rgb255(0cm)=(10,10,10); rgb255(1cm)=(255,81,81); rgb255(2cm)=(111,111,111)}
+}
+
+\begin{document}
+	\begin{tikzpicture}
+
+	\begin{axis}[grid=major,view={210}{30}, xlabel=$x$, ylabel=$y$, zlabel=$5x\sin(2x) y(1-y)$]
+	\addplot3+[mesh,scatter, mark=halfcircle, colormap name=myblue, samples=10,domain=0:1] 
+		{5*x*sin(2*deg(x)) * y*(1-y)};
+	\end{axis}
+
+	\end{tikzpicture}
+\end{document}
+

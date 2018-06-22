@@ -1,0 +1,41 @@
+\documentclass[]{standalone}
+%\usepackage[top=0.5cm,bottom=0.5cm,left=1.5cm,right=3cm]{geometry}
+
+\usepackage{tikz}
+\usetikzlibrary{calc} % <- biblioteca para cálculos, ex: coordenadas relativas
+\usetikzlibrary{shapes} % <- biblioteca de formas
+
+\usetikzlibrary{arrows, positioning} % <- biblioteca de setas
+\usetikzlibrary{decorations.markings} % <- biblioteca de decorações, classe de símbolos e marcadores especiais
+
+
+\tikzstyle arrowstyle=[scale=1]
+\tikzstyle directed=[postaction={decorate,decoration={markings,
+    mark=at position .65 with {\arrow[arrowstyle]{stealth}}}}]
+\tikzstyle reverse directed=[postaction={decorate,decoration={markings,
+    mark=at position .65 with {\arrowreversed[arrowstyle]{stealth};}}}]	
+
+\begin{document}
+
+	\begin{tikzpicture}
+		
+	\draw[blue!50!cyan,step=0.25, opacity=0.35] (-1,3) grid (13, -4);
+
+   \foreach \x [count=\i from 0] in {latex, latex reversed, latex', latex' reversed, square, stealth, stealth reversed}
+	{
+	\draw [line width=1.25pt, decoration={markings,mark=at position 1 with
+    {\arrow[scale=2.5,>=\x]{>}}},postaction={decorate}] (2*\i,0) -- (2*\i,2) node [above, font=\tiny] {\x};
+	}
+	
+
+   \foreach \x [count=\i from 0] in {latex, latex reversed, latex', latex' reversed, square, stealth, stealth reversed}
+	{
+	\draw [line width=1.25pt, decoration={markings,mark=at position 0.65 with
+    {\arrow[scale=2.5,>=\x]{>}}},postaction={decorate}] (2*\i,-3) -- (2*\i,-1) node [above, font=\tiny] {\x};
+	}
+        
+   	
+	\end{tikzpicture}
+
+
+\end{document}

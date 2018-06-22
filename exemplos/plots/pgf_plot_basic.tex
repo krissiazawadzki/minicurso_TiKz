@@ -1,0 +1,18 @@
+\documentclass[]{standalone}
+\usepackage{pgfplots}
+
+\begin{document}
+
+\begin{tikzpicture} 
+	\begin{axis}[options] 
+	 
+	 \addplot[domain=\xmin:\xmax, 
+	 samples=\npoints, args]
+	 {function};
+	
+	 \legend{$ function$, };
+	
+	\end{axis} 
+	\end{tikzpicture}
+
+\end{document}

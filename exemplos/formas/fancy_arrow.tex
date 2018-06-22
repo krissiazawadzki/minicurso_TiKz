@@ -1,0 +1,25 @@
+\documentclass[svgnames]{article}
+\usepackage{tikz}
+\usetikzlibrary{fadings,shapes.arrows,shadows}
+
+\usepackage{xparse}
+
+\usepackage{lipsum}
+
+\tikzfading[name=arrowfading, top color=transparent!0, bottom color=transparent!95]
+\tikzset{arrowfill/.style={#1,general shadow={fill=black, shadow yshift=-0.8ex, path fading=arrowfading}}}
+\tikzset{arrowstyle/.style n args={3}{draw=#2,arrowfill={#3}, single arrow,minimum height=#1, single arrow,
+single arrow head extend=.3cm,}}
+
+\NewDocumentCommand{\tikzfancyarrow}{O{2cm} O{FireBrick} O{top color=OrangeRed!20, bottom color=Red} m}{
+\tikz[baseline=-0.5ex]\node [arrowstyle={#1}{#2}{#3}] {#4};
+}
+
+\begin{document}
+This is my  \tikzfancyarrow{fancy} arrow\\
+This is my  \tikzfancyarrow[3cm]{fancy} arrow. \lipsum[1]
+
+Here is another \tikzfancyarrow[2.5cm][Orchid][top color= Thistle,bottom color=Orchid]{example} of \tikzfancyarrow[3cm][SeaGreen][top color= SpringGreen,bottom color=Teal]{tikzfancyarrow} with different coloring possibility.
+
+There is also a \tikzfancyarrow[1.5cm][DarkBlue][top color= PaleTurquoise,bottom color=DeepSkyBlue,shape border rotate=270]{rotated} arrow pointing down and a rotated\tikzfancyarrow[1.5cm][Crimson][top color= Coral,bottom color=DarkOrange,shape border rotate=90]{\phantom{cf}} arrow pointing up, upon the desire needs.
+\end{document}

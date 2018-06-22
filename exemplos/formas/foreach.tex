@@ -1,0 +1,53 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{shapes, calc}
+
+
+
+\begin{document}
+
+
+\begin{tikzpicture}[
+vertex_style/.style={circle,shading=ball,ball color=red,draw=red!80!white,drop shadow={opacity=0.4}},
+node_spin/.style={circle, shading=ball, ball color=gray!10!white, draw=none, minimum width=1.5cm,inner sep=0.1cm, opacity=0.7},
+edge_style/.style={ultra thick, black,drop shadow={opacity=0.4}},
+		hora/.style={rectangle, minimum width=1.75cm, minimum height=1.75cm, rounded corners=2mm, top color=gray!10, bottom color=brown!50}, font=\huge \bfseries, 
+		]
+ 
+\begin{scope}[xshift=0cm, rotate=0]
+
+	\def\lados{12};
+	\node[regular polygon, regular polygon sides=\lados, minimum size=15.cm, draw=brown, dashed, line width=2pt, rotate=15, transform shape, opacity=0.3] at (0,0) (A) {};
+	
+
+
+\foreach[count=\acc from 0] \i in {1,...,\lados}{
+	
+		\node[regular polygon, regular polygon sides=5, minimum size=1.5cm, draw=black, dashed] at (A.corner \i) (pents\acc) {};
+		\node[circle, minimum size =1cm] at (pents\acc.corner \i) {};
+		
+		
+		
+		\pgfmathparse{int(mod(\i,5)+1)}
+		\edef\neigh{\pgfmathresult}
+		
+		
+		\pgfmathparse{int(abs(mod(\i-\lados-1,\lados)))}
+		\edef\labeli{\pgfmathresult}
+		
+		\node[] at (pents\acc.center) {\labeli};
+		
+		\node[circle,shading=ball, ball color=white, draw=black, minimum width=0.3cm,inner sep=0.1cm,opacity=0.2] at (pents\acc.corner \neigh) {};
+		}
+		
+    \node[circle] at (pents1.corner 1) {};
+    
+    
+	
+\end{scope}
+
+\end{tikzpicture}
+
+
+\end{document}
+    

@@ -1,0 +1,41 @@
+\documentclass[11pt]{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{decorations.markings}
+
+\begin{document}
+
+	\tikzset{
+	particle/.style={thick,draw=blue, postaction={decorate},
+		decoration={markings,mark=at position .5 with {\arrow[blue]{triangle 45}}}},
+	gluon/.style={decorate, draw=black,
+		decoration={coil,aspect=0}}
+	 }
+
+	\begin{tikzpicture}[node distance=1cm and 1.5cm]
+	\coordinate[label=left:$e^{-}$] (e1);
+	
+	\coordinate[below right=of e1] (aux1);
+	
+	\coordinate[above right=of aux1,label=right:$e^{-}$] (e2);
+	
+	\coordinate[below=1.25cm of aux1] (aux2);
+	
+	\coordinate[below left=of aux2,label=left:$e^{-}$] (e3);
+	
+	\coordinate[below right=of aux2,label=right:$e^{-}$] (e4);
+
+	\draw[particle] (e1) -- (aux1);
+	
+	\draw[particle] (aux1) -- (e2);
+	
+	\draw[particle] (e3) -- (aux2);
+	
+	\draw[particle] (aux2) -- (e4);
+	
+	\draw[gluon] (aux1) -- node[label=right:$\gamma$] {} (aux2);
+
+	\end{tikzpicture}
+\end{document}
