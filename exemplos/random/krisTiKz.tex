@@ -1,0 +1,289 @@
+\documentclass{standalone}
+
+
+
+\usepackage[svgnames]{xcolor}
+
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{fit, arrows, shapes, shapes.geometric, calc, fadings,  shadows}
+
+
+
+\usepackage{relsize}
+
+
+\usepackage{amsmath}
+\definecolor{maincolor}{HTML}{006666}
+
+\definecolor{pele}{HTML}{FFCCCC}
+\definecolor{cabelo1}{HTML}{006666}
+\definecolor{cabelo2}{HTML}{006666}
+\definecolor{cabelo3}{HTML}{006666}
+
+\definecolor{oleos1}{HTML}{006666}
+\definecolor{oleos2}{HTML}{006666}
+
+
+\newcommand{\desenhacachoR}[2]{
+
+		\node[] (coordarg) at (#1) {};
+
+		\draw [draw=none, ball color=#2, line width=1.5pt] plot [smooth cycle] 
+		coordinates {
+		($(coordarg)+(-0.00,0.0)$) 
+		($(coordarg)+(1.00,0.1)$) 
+		($(coordarg)+(1.5,-0.4)$) 
+		($(coordarg)+(1.85,-0.75)$) 
+		($(coordarg)+(2.,-1.1)$) 
+		($(coordarg)+(1.95,-1.5)$) 
+		($(coordarg)+(2.15,-2.0)$)
+		($(coordarg)+(2.00,-2.5)$) 
+		($(coordarg)+(2.25,-3.0)$) 
+		($(coordarg)+(2.00,-3.5)$) ($(coordarg)+(2.50,-4.25)$) 
+		($(coordarg)+(2.00,-5.25)$) ($(coordarg)+(2.50,-6.0)$)
+		($(coordarg)+(2.05,-7.0)$)
+		($(coordarg)+(2.20,-6.25)$)
+		($(coordarg)+(1.65,-5.25)$)
+		($(coordarg)+(2.10,-4.25)$)
+		($(coordarg)+(1.65,-3.5)$) 
+		($(coordarg)+(1.85,-3.0)$)
+		($(coordarg)+(1.70,-2.65)$)
+		($(coordarg)+(1.9,-2.1)$) 
+		($(coordarg)+(1.65,-1.7)$)
+		($(coordarg)+(1.6,-0.9)$)
+		};
+
+}
+
+\newcommand{\desenhacachoL}[2]{
+
+		\node[] (coordarg) at (#1) {};
+
+		\draw [draw=none, ball color=#2, line width=1.5pt, x={(-1,0)},y={(0,1)}] plot [smooth cycle] 
+		coordinates {
+		($(coordarg)+(-0.00,0.0)$) 
+		($(coordarg)+(1.00,0.1)$) 
+		($(coordarg)+(1.5,-0.4)$) 
+		($(coordarg)+(1.85,-0.75)$) 
+		($(coordarg)+(2.,-1.1)$) 
+		($(coordarg)+(1.95,-1.5)$) 
+		($(coordarg)+(2.15,-2.0)$)
+		($(coordarg)+(2.00,-2.5)$) 
+		($(coordarg)+(2.25,-3.0)$) 
+		($(coordarg)+(2.00,-3.5)$) ($(coordarg)+(2.50,-4.25)$) 
+		($(coordarg)+(2.00,-5.25)$) ($(coordarg)+(2.50,-6.0)$)
+		($(coordarg)+(2.05,-7.0)$)
+		($(coordarg)+(2.20,-6.25)$)
+		($(coordarg)+(1.65,-5.25)$)
+		($(coordarg)+(2.10,-4.25)$)
+		($(coordarg)+(1.65,-3.5)$) 
+		($(coordarg)+(1.85,-3.0)$)
+		($(coordarg)+(1.70,-2.65)$)
+		($(coordarg)+(1.9,-2.1)$) 
+		($(coordarg)+(1.65,-1.7)$)
+		($(coordarg)+(1.6,-0.9)$)
+		};
+
+}
+
+
+\newcommand{\sobrancelha}[3]{
+
+		\node[] (coordarg) at (#1) {};
+		\draw [draw=none, bottom color=brown!80!orange, top color=brown!50!black, 
+		line width=1.5pt,
+		x={(#2,0)},y={(0,1)},
+		rotate=#3,
+		] plot [smooth cycle] 
+		coordinates {
+		($(coordarg)+(0.0,-0.05)$)
+		($(coordarg)+(0.75,0.15)$)
+		($(coordarg)+(1.15,-0.05)$)
+		($(coordarg)+(0.85,0.05)$)
+		($(coordarg)+(0.15,-0.125)$)
+		}	;
+
+}
+
+\pgfdeclareradialshading{distorted}{\pgfqpoint{10bp}{10bp}}{%
+  color(0bp)=(black);
+  color(10bp)=(orange!90!black);
+  color(20bp)=(black!75!brown);
+  color(30bp)=(brown)}
+
+
+\tikzset{vcol/.code={\colorlet{vcol}{#1}},hcol/.code={\colorlet{hcol}{#1}},vcol=red,hcol=blue}
+\pgfdeclarefunctionalshading[vcol,hcol]{azimuth}{\pgfpointorigin}%
+{\pgfpoint{50bp}{50bp}}%
+{%
+\pgfshadecolortorgb{vcol}{\mycola}%
+\pgfshadecolortorgb{hcol}{\mycolb}
+}{%
+atan 90 div dup dup 
+\mycolablue \mycolbblue sub mul \mycolablue exch sub 3 1 roll
+\mycolagreen \mycolbgreen sub mul \mycolagreen exch sub exch 
+\mycolared \mycolbred sub mul \mycolared exch sub 3 1 roll exch 
+}
+
+
+\begin{document}
+
+	\begin{tikzpicture}
+
+		\def\coordoleosx{0.85};
+		\def\coordoleosy{0.2};
+		\def\coordbocax{0.75};
+		\def\coordbocay{0.85};
+		\def\coordbocayb{1.30};
+		
+		\node[] (origem) at (0,0) {};
+		\node[] (cabelo) at ($(origem)+(0,2)$) {};
+		\node[] (cabeloR) at ($(origem)+(-0.15,2)$) {};
+		\node[] (cabeloL) at ($(origem)+(0.00,2)$) {};
+		
+		\node[] (olhoL) at ($(cabelo)+(-0.6,-1.30)$){};
+		\node[] (olhoR) at ($(cabelo)+(0.25,-1.250)$){};
+
+		
+		\node[] (nariz) at ($(olhoR)+(-0.35,-1.0)$){};
+		
+		\node[] (queixo) at ($(nariz)+(0.085,-1.7)$){};		
+		
+		
+		\desenhacachoL{$(cabelo)+(0.5,-0.0)$}{brown!80!black};
+		\desenhacachoL{$(cabelo)+(0.75,0)$}{brown!80!orange};
+		\desenhacachoL{$(cabelo)+(0.95,-0.15)$}{brown!80!black};
+		\desenhacachoL{$(cabelo)+(1.25,-0.15)$}{brown!80!orange};
+		\desenhacachoL{$(cabelo)+(1.5,-0.275)$}{brown!80!black};
+
+		\desenhacachoR{$(cabelo)+(-0.5,0)$}{brown!80!black};
+		\desenhacachoR{$(cabelo)+(-0.75,0)$}{brown!20!orange};		
+		\desenhacachoR{$(cabelo)+(-0.95,-0.15)$}{brown!80!black};
+		\desenhacachoR{$(cabelo)+(-1.25,-0.15)$}{brown!50!orange};		
+		\desenhacachoR{$(cabelo)+(-1.45,-0.375)$}{brown!80!black};
+		
+		
+		\shade [draw=none, bottom color=pele!80, top color=pele!70!black, shading angle=-80] plot [smooth cycle]
+		coordinates {
+		($(queixo) + (-0.0, 0.1)$)
+		($(queixo) + (-0.6, 0.225)$)
+		($(queixo) + (-0.45, -0.4)$)
+		($(queixo) + (-2.05, -1.35)$)
+		($(queixo) + (-2.15, -4.05)$)
+		($(queixo) + (-1.65, -4.05)$)
+		($(queixo) + (-1.35, -1.75)$)
+		($(queixo) + (-1.275, -2.25)$)
+		($(queixo) + (-0.8, -3.35)$)
+		($(queixo) + (-1.25, -4.25)$)
+		($(queixo) + (1.25, -4.25)$)	
+		($(queixo) + (0.8, -3.35)$)
+		($(queixo) + (1.275, -2.25)$)
+		($(queixo) + (1.35, -1.75)$)
+		($(queixo) + (1.65, -4.05)$)
+		($(queixo) + (2.15, -4.05)$)	
+		($(queixo) + (2.05, -1.95)$)
+		($(queixo) + (2.05, -1.35)$)
+		($(queixo) + (0.45, -0.4)$)
+		($(queixo) + (0.6, 0.225)$)
+		};
+				
+
+		\shade [draw=none, color=black, ball color=black, shading angle=30] plot [smooth cycle]
+		coordinates {
+		($(queixo) + (-0.75, -1.70)$)
+		($(queixo) + (-1.2, -1.75)$)
+		($(queixo) + (-1.05, -0.675)$)
+		($(queixo) + (-1.3, -1.75)$)
+		($(queixo) + (-1.275, -2.25)$)
+		($(queixo) + (-0.8, -3.35)$)
+		($(queixo) + (-1.25, -4.25)$)
+		($(queixo) + (1.25, -4.25)$)	
+		($(queixo) + (0.8, -3.35)$)
+		($(queixo) + (1.275, -2.25)$)
+		($(queixo) + (1.3, -1.75)$)
+		($(queixo) + (0.9, -0.675)$)
+		($(queixo) + (1.2, -1.75)$)	
+		($(queixo) + (0.75, -1.70)$)
+		($(queixo) + (0.0, -1.80)$)
+		};
+
+		
+		\draw[looseness=0.75, draw=none, top color=pele!50, bottom color=pele!80!black, rotate=180, transform shape] ($(origem)+(-2,0)$) arc (180:360:2) to[out=90,in=0] ($(origem)+(0,2)$) to[out=180,in=90] ($(origem)+(-2,0)$) -- cycle;
+
+		
+		\shade [color=white, rotate=5, transform shape] ($(origem)+(-\coordoleosx-0.1,\coordoleosy)$) ellipse (0.525 and 0.4);
+		\shade [color=white, rotate=5, transform shape] ($(origem)+(\coordoleosx-0.1,\coordoleosy)$) ellipse (0.5 and 0.35);
+		\shade [shading=distorted] ($(origem)+(-\coordoleosx,\coordoleosy-0.05)$) circle (0.35cm);
+		
+		\shade [shading=distorted] ($(origem)+(\coordoleosx,\coordoleosy+0.05)$) circle (0.3cm);
+		
+		
+		\draw [draw=none, ball color=red!70, line width=1.5pt, rotate=-10, transform shape] plot [smooth cycle] coordinates {($(origem)+(-0.75,-\coordbocay)$) ($(origem)+(-0.00,-\coordbocay-0.1)$) ($(origem)+(0.75,-\coordbocay)$) ($(origem)+(0.25,-\coordbocay-0.35)$) ($(origem)+(-0.25,-\coordbocay-0.35)$)};
+		\draw [draw=none, top color=white!50!black, bottom color=white, line width=1.5pt, rotate=-10, yscale=0.7, xscale=0.8, transform shape] plot [smooth cycle] coordinates {($(origem)+(-0.75,-\coordbocayb)$) ($(origem)+(-0.00,-\coordbocayb-0.1)$) ($(origem)+(0.75,-\coordbocayb)$) ($(origem)+(0.25,-\coordbocayb-0.35)$) ($(origem)+(-0.25,-\coordbocayb-0.35)$)};
+		
+		
+		\sobrancelha{olhoR}{1}{0};
+		\sobrancelha{olhoL}{-1}{9.5};			
+
+		\node [] (cacho2R) at ($(cabeloR)+(0.25,0.1)$){};
+		\desenhacachoR{cacho2R}{brown};
+		\desenhacachoR{cabeloR}{brown!70!orange};
+
+		\node [] (cacho2L) at ($(cabeloL)+(0.25,0.1)$){};
+		\desenhacachoL{$(cabeloL)+(-0.00,0)$}{brown!70!orange};
+		\desenhacachoL{$(cabeloL)+(0.15,0)$}{brown!70!black};
+		
+	
+
+		
+		\draw [draw=none, bottom color= pele!80!black, line width=1.5pt,rotate=-20] plot [smooth cycle] 
+		coordinates {
+		($(nariz)+(-0.1,0.2)$)
+		($(nariz)+(0.25,-0.05)$) 
+		($(nariz)+(0.15,-0.3)$)
+		($(nariz)+(0.2,-0.1)$) 
+		};
+		
+
+		\draw [draw=none, ball color=brown, line width=1.5pt, x={(-1,0)},y={(0,1)}] plot [smooth cycle] 
+		coordinates {
+		($(cabeloL)+(-1.00,0.0)$)
+		($(cabeloL)+(0.0,0.3)$) 
+		($(cabeloL)+(0.70,0.2)$) 
+		($(cabeloL)+(1.5,-0.4)$) 
+		($(cabeloL)+(1.85,-0.75)$) 
+		($(cabeloL)+(1.9,-1.1)$) 
+		($(cabeloL)+(1.95,-1.5)$) 
+		($(cabeloL)+(2.15,-2.0)$)
+		($(cabeloL)+(2.00,-2.5)$) 
+		($(cabeloL)+(2.25,-3.0)$) 
+		($(cabeloL)+(2.00,-3.5)$) ($(cabeloL)+(2.50,-4.25)$) 
+		($(cabeloL)+(2.00,-5.25)$) ($(cabeloL)+(2.50,-6.0)$)
+		($(cabeloL)+(2.25,-7.0)$)
+		($(cabeloL)+(2.20,-6.25)$)
+		($(cabeloL)+(1.65,-5.25)$)
+		($(cabeloL)+(2.10,-4.25)$)
+		($(cabeloL)+(1.65,-3.5)$) 
+		($(cabeloL)+(1.85,-3.0)$)
+		($(cabeloL)+(1.70,-2.65)$)
+		($(cabeloL)+(1.9,-2.1)$) 
+		($(cabeloL)+(1.65,-1.7)$)
+		($(cabeloL)+(1.4,-1.45)$)
+		($(cabeloL)+(0.6,-1.3)$)
+		};	
+		
+		
+		\node[] (myframe) at  ($(cabelo)+(-3,0.5)$) {};
+		
+		\draw[fill=none,draw=red!50!black, line width=7pt]($(myframe)+(0,0)$) rectangle +(6,-8.7);
+     
+     \node[rotate=20, transform shape] (logotex) at ($(myframe)+(5,-8.0)$) 
+     {\includegraphics[scale=0.15]{texlogo.png}};
+
+
+		
+	\end{tikzpicture}
+	
+\end{document}
+		
